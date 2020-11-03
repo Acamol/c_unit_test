@@ -19,14 +19,16 @@ do { \
 do { \
     if ((a) != (b)) { \
         no_way_someone_use_this_variable_name = false; \
-        return false; }\
+        __retval = false; \
+    } \
 } while (false)
 
 #define EXPECT_NEQ(a, b) \
 do { \
     if ((a) == (b)) { \
         no_way_someone_use_this_variable_name = false; \
-        return false; } \
+        __retval = false; \
+    } \
 } while (false)
 
 #define EXPECT_TRUE(cond) EXPECT_EQ(cond, true)
@@ -35,10 +37,11 @@ do { \
 
 #define TEST(test_name, ...) \
 static bool test_name() { \
+    bool __retval = true; \
     { \
         __VA_ARGS__ \
     } \
-    return true; \
+    return __retval; \
 }
 
 #define VALIDATE() \
